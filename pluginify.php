@@ -311,8 +311,8 @@ For questions, please email me mailto:$email
         }
     }
     
-    if ( php_sapi_name() === 'cli' ) {
+    if ( php_sapi_name() === 'cli' )
         new Pluginify( $argv );
-    } else
+    else
         echo "`pluginify` must be run from command line!\n";
 ?>
