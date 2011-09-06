@@ -2,3 +2,13 @@
     Syntax: `pluginify` -h <plugin_name>
     -h              Prints this help.
     <plugin_name>   Creates a plugin using <plugin_name>.
+
+
+To install this:
+`
+$git clone git://github.com/stas/pluginify.git
+$cat > ~/.bin/pluginify
+#!/bin/bash
+php /path/to/pluginify/pluginify.php $@
+`
+Make sure `~/.bin` is in your `$PATH`
