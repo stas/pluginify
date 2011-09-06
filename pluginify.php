@@ -117,6 +117,12 @@
          * @return Bool, true on success or false on failure
          */
         function process( $plugin ) {
+            
+            $headers = get_headers( "http://plugins.svn.wordpress.org/{$plugin}/" );
+
+            if ( $headers['0'] !== 'HTTP/1.1 404 Not Found' )
+                die( 'This name is not available!' );
+            
             $whoami = self::whoami();
             
             if ( !self::make_dirs( $plugin ) )
