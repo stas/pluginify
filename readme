@@ -1,0 +1,4 @@
+`pluginify`, is a tool to generate a WordPress plugin skeleton.
+    Syntax: `pluginify` -h <plugin_name>
+    -h              Prints this help.
+    <plugin_name>   Creates a plugin using <plugin_name>.
