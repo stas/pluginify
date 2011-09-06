@@ -93,12 +93,11 @@
                 $uid = get_current_user();
             
             // Try to get the email from ~/.gitconfig file
-            $email = trim( shell_exec( "grep -iR 'email' ~/.gitconfig | cut -d '=' -f 2" ) );
+            $email = trim( shell_exec( "grep -siR 'email' ~/.gitconfig | cut -d '=' -f 2" ) );
             if ( empty( $email ) )
                 $email = $uid . '@' . php_uname( 'n' );
             
             // Try to guess the WordPress version if we are inside a WordPress codebase
-            //if ( basename( getcwd() ) == 'wp-content' )
             $cwd_path = explode( DIRECTORY_SEPARATOR, getcwd() );
             foreach ( $cwd_path as $k => $d )
                 if ( $d == 'wp-content' ) {
