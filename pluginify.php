@@ -2,7 +2,7 @@
 <?php
     class Pluginify {
         // Version
-        static $version = '0.1';
+        static $version = '0.2';
         
         /**
          * Constructor
@@ -22,11 +22,11 @@
             if ( count( $argv ) > 1 )
                 self::error( 0, $argv ); // Too many args
             elseif ( count( $argv ) == 1 )
-                self::process( reset( $argv ) ); // Do the magic
-            else{
+                return self::process( reset( $argv ) ); // Do the magic
+            else
                 self::help();
-                return true; // End successfuly
-            }
+            
+            return true; // End successfuly
         }
         
         /**
@@ -58,6 +58,9 @@
                     break;
                 case 3 :
                     printf( "Error #%d: there was an error while creating default php files. Plugin name: %s.\n", $code, $args );
+                    break;
+                case 4 :
+                    printf( "Error #%d: a plugin with that name exists already. Plugin name: %s.\n", $code, $args );
                     break;
                 default:
                     printf( "Unknown error code %d with arguments: %s.\n", $code, json_encode( $args ) );
@@ -120,8 +123,10 @@
             
             $headers = get_headers( "http://plugins.svn.wordpress.org/{$plugin}/" );
 
-            if ( $headers['0'] !== 'HTTP/1.1 404 Not Found' )
-                die( 'This name is not available!' );
+            if ( $headers['0'] !== 'HTTP/1.1 404 Not Found' ) {
+                self::error( 4, $plugin ); // Failure with plugin namespace
+                return;
+            }
             
             $whoami = self::whoami();
             
