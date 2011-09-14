@@ -65,6 +65,7 @@
                 default:
                     printf( "Unknown error code %d with arguments: %s.\n", $code, json_encode( $args ) );
             }
+            
             self::help();
         }
         
@@ -122,8 +123,7 @@
         function process( $plugin ) {
             
             $headers = get_headers( "http://plugins.svn.wordpress.org/{$plugin}/" );
-
-            if ( $headers['0'] !== 'HTTP/1.1 404 Not Found' ) {
+            if ( $headers && $headers['0'] == 'HTTP/1.1 200 OK' ) {
                 self::error( 4, $plugin ); // Failure with plugin namespace
                 return;
             }
